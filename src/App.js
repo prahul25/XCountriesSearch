@@ -7,13 +7,17 @@ function App() {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
-    
-    const func = async() => {
-      const api = await axios("https://restcountries.com/v3.1/all");
-      // console.log(api.data)
-      setCountries(api.data)
+    try {
+      const func = async() => {
+        const api = await axios("https://restcountries.com/v3.1/all");
+        // console.log(api.data)
+        setCountries(api.data)
+      }
+      
+      func();
+    } catch (err) {
+      console.log("Error fetching data: " , err)
     }
-    func();
     // fetch("https://restcountries.com/v3.1/all")
     //   .then((res) => res.json())
     //   .then((data) => setCountries(data)).catch(err => console.error("Error fetching data: " , err));
