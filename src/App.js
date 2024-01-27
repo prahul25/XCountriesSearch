@@ -23,7 +23,7 @@ function App() {
       );
       setCountries(filteredData);
     }
-    console.log(searchCountries.length);
+    // console.log(searchCountries.length);
   }, [searchCountries]);
 
   const countryCard = {
