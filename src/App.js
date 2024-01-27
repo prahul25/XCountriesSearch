@@ -23,10 +23,10 @@ function App() {
       );
       setCountries(filteredData);
     }
-    // console.log(searchCountries.length);
+    console.log(searchCountries.length);
   }, [searchCountries]);
 
-  const countryCard = {
+  const cardStyle = {
     width: "200px",
     border: "1px solid #ccc",
     borderRadius: "10px",
@@ -75,7 +75,7 @@ function App() {
       </div>
       <div style={containerStyle}>
         {countries.map((country) => (
-          <div key={country.cca3} style={countryCard}>
+          <div key={country.cca3} style={cardStyle}>
             <img
               style={imageStyle}
               src={country.flags.png}
