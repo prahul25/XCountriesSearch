@@ -3,18 +3,20 @@ import { useEffect, useState } from "react";
 function App() {
   const [countries, setCountries] = useState([]);
   const [searchCountries, setSearchCountries] = useState("");
-  // console.log(searchCountries);
-  // console.log(countries)
+// Fetch countries data on component mount
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
       .then((res) => res.json())
       .then((data) => setCountries(data))
       .catch((err) => console.error("Error fetching data: ", err));
   }, []);
+  // Filter countries based on search input
   useEffect(() => {
-    if (searchCountries.length === 0) {
+
+    if (!searchCountries) {
       setCountries(countries);
     }
+
     if (searchCountries !== "") {
       let filteredData = countries.filter((country) =>
         country.name.common
@@ -23,7 +25,7 @@ function App() {
       );
       setCountries(filteredData);
     }
-    console.log(searchCountries.length);
+  
   }, [searchCountries]);
 
   const cardStyle = {
