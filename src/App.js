@@ -28,7 +28,7 @@ function App() {
   
   }, [searchCountries]);
 
-  const countryCard = {
+  const cardStyle = {
     width: "200px",
     border: "1px solid #ccc",
     borderRadius: "10px",
@@ -45,7 +45,7 @@ function App() {
     height: "100px",
   };
 
-  const containerStyle = {
+  const countryCard = {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -75,9 +75,9 @@ function App() {
           onChange={(e) => setSearchCountries(e.target.value)}
         />
       </div>
-      <div style={containerStyle}>
+      <div style={countryCard}>
         {countries.map((country) => (
-          <div key={country.cca3} style={countryCard}>
+          <div key={country.cca3} style={cardStyle}>
             <img
               style={imageStyle}
               src={country.flags.png}
