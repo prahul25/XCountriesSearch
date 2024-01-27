@@ -2,31 +2,40 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [countries, setCountries] = useState([]);
+  const [showCountries, setShowCountries] = useState([]);
   const [searchCountries, setSearchCountries] = useState("");
-// Fetch countries data on component mount
+  const [specificCountries, setSpecificCountries] = useState([]);
+  // Fetch countries data on component mount
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
       .then((res) => res.json())
-      .then((data) => setCountries(data))
+      .then((data) => {
+        setCountries(data);
+        setShowCountries(data);
+      })
       .catch((err) => console.error("Error fetching data: ", err));
   }, []);
   // Filter countries based on search input
   useEffect(() => {
+    let filteredData = countries.filter((country) =>
+      country.name.common.toLowerCase().includes(searchCountries.toLowerCase())
+    );
+    setSpecificCountries(filteredData);
 
-    if (!searchCountries) {
-      setCountries(countries);
+    if (specificCountries.length !== 0) {
+      // setShowCountries("")
+      
+      setShowCountries(specificCountries);
+    } else {
+      // setShowCountries("")
+      setShowCountries(countries);
     }
-
-    if (searchCountries !== "") {
-      let filteredData = countries.filter((country) =>
-        country.name.common
-          .toLowerCase()
-          .includes(searchCountries.toLowerCase())
-      );
-      setCountries(filteredData);
-    }
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchCountries]);
+
+  function handleChange(e) {
+    setSearchCountries(e.target.value);
+  }
 
   const cardStyle = {
     width: "200px",
@@ -72,11 +81,11 @@ function App() {
           style={searchInput}
           value={searchCountries}
           placeholder="Search for countries..."
-          onChange={(e) => setSearchCountries(e.target.value)}
+          onChange={handleChange}
         />
       </div>
       <div style={countryCard}>
-        {countries.map((country) => (
+        {showCountries.map((country) => (
           <div key={country.cca3} style={cardStyle}>
             <img
               style={imageStyle}
