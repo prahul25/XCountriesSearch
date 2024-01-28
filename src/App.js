@@ -4,7 +4,7 @@ function App() {
   const [countries, setCountries] = useState([]);
   const [showCountries, setShowCountries] = useState([]);
   const [searchCountries, setSearchCountries] = useState("");
-  const [specificCountries, setSpecificCountries] = useState([]);
+  // const [specificCountries, setSpecificCountries] = useState([]);
   // Fetch countries data on component mount
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
@@ -20,16 +20,13 @@ function App() {
     let filteredData = countries.filter((country) =>
       country.name.common.toLowerCase().includes(searchCountries.toLowerCase())
     );
-    setSpecificCountries(filteredData);
-
-    if (specificCountries.length !== 0) {
-      // setShowCountries("")
-      
-      setShowCountries(specificCountries);
-    } else {
-      // setShowCountries("")
-      setShowCountries(countries);
+    if(!searchCountries){
+      setShowCountries("")
+      setShowCountries(countries)
+    }else{
+      setShowCountries(filteredData)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchCountries]);
 
